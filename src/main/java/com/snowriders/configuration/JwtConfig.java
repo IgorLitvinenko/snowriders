@@ -1,4 +1,4 @@
-package com.snowriders.configs;
+package com.snowriders.configuration;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

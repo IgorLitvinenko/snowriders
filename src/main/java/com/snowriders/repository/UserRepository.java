@@ -1,6 +1,6 @@
-package com.snowriders.repositories;
+package com.snowriders.repository;
 
-import com.snowriders.entities.AppUser;
+import com.snowriders.model.entities.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

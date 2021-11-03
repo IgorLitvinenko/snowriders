@@ -1,12 +1,13 @@
 package com.snowriders.service;
 
-import com.snowriders.entities.Role;
+import com.snowriders.model.request.CreateRoleRequest;
+import com.snowriders.model.response.RoleResponse;
 
 import java.util.Set;
 
 public interface RoleService {
 
-    Role saveRole(String roleName);
+    RoleResponse createRole(CreateRoleRequest request);
 
     Set<String> getRoles();
 }

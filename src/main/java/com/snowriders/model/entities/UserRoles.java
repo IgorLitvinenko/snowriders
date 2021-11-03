@@ -1,6 +1,8 @@
-package com.snowriders.entities;
+package com.snowriders.model.entities;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
@@ -9,12 +11,12 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @Table(name = "user_roles")
+@Builder
+@AllArgsConstructor
 public class UserRoles {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
     private Long id;
-
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
@@ -24,4 +26,12 @@ public class UserRoles {
     @JoinColumn(name = "role_id")
     private Role role;
 
+    @Override
+    public String toString() {
+        return "UserRoles{" +
+                "id=" + id +
+//                ", user=" + user +
+                ", role=" + role +
+                '}';
+    }
 }

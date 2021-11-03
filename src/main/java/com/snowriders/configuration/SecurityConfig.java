@@ -1,4 +1,4 @@
-package com.snowriders.configs;
+package com.snowriders.configuration;
 
 import com.snowriders.jwt.JwtTokenVerifier;
 import com.snowriders.jwt.JwtUsernameAndPasswordAuthenticationFilter;
@@ -37,19 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-//                .antMatchers("/login/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(),jwtConfig))
                 .addFilterBefore(new JwtTokenVerifier(jwtConfig), JwtUsernameAndPasswordAuthenticationFilter.class);
     }
-
-//    @Bean
-//    public DaoAuthenticationProvider daoAuthenticationProvider() {
-//        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-//        authenticationProvider.setPasswordEncoder(bCryptPasswordEncoder);
-//        authenticationProvider.setUserDetailsService(userDetailsService);
-//        authenticationProvider.setHideUserNotFoundExceptions(false);
-//        return authenticationProvider;
-//    }
 }

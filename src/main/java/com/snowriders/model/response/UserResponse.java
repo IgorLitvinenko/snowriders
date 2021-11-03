@@ -1,9 +1,10 @@
 package com.snowriders.model.response;
 
-import com.snowriders.entities.AppUser;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class UserResponse {
 
     private Long id;
@@ -12,10 +13,4 @@ public class UserResponse {
     private String email;
 
     //todo move to mapper
-    public UserResponse(AppUser appUser) {
-        this.id = appUser.getId();
-        this.firstName = appUser.getFirstName();
-        this.lastName = appUser.getLastName();
-        this.email = appUser.getEmail();
-    }
 }

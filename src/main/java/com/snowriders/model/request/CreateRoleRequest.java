@@ -1,10 +1,13 @@
 package com.snowriders.model.request;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateRoleRequest {
 
     @NotNull

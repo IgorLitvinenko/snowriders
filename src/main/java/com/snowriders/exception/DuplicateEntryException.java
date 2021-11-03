@@ -1,4 +1,4 @@
-package com.snowriders.exceptions;
+package com.snowriders.exception;
 
 public class DuplicateEntryException extends RuntimeException {
 

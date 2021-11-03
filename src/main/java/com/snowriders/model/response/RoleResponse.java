@@ -1,10 +1,10 @@
 package com.snowriders.model.response;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
-public class RoleNameResponse {
+@Builder
+public class RoleResponse {
    private String roleName;
 }

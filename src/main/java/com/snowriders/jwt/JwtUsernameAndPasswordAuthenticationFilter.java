@@ -3,9 +3,10 @@ package com.snowriders.jwt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snowriders.configs.JwtConfig;
-import com.snowriders.entities.AppUser;
-import com.snowriders.model.request.UsernameAndPasswordRequest;
+import com.snowriders.configuration.JwtConfig;
+import com.snowriders.model.entities.AppUser;
+import com.snowriders.model.request.UserRequest;
+import com.snowriders.model.util.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,8 +35,8 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
         try {
-            UsernameAndPasswordRequest authenticationRequest = new ObjectMapper()
-                    .readValue(request.getInputStream(), UsernameAndPasswordRequest.class);
+            UserRequest authenticationRequest = new ObjectMapper()
+                    .readValue(request.getInputStream(), UserRequest.class);
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     authenticationRequest.getUsername(),
@@ -47,19 +48,14 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-//        String username = request.getParameter("username");
-//        String password = request.getParameter("password");
-//
-//        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
-//        return authenticationManager.authenticate(authToken);
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                             FilterChain chain, Authentication authResult) throws IOException, ServletException {
 
-        AppUser user = (AppUser) authResult.getPrincipal();
+        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authResult.getPrincipal();
+        AppUser user = userDetailsImpl.getUser();
         Algorithm algorithm = Algorithm.HMAC256(jwtConfig.getSecretKey());
         String token = JWT.create()
                 .withClaim("id", user.getId())
